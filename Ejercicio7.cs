@@ -7,27 +7,27 @@ namespace Ejercicio_7
         static void Main(string[] args)
         {
             Random aleatorio = new Random();
-            int dado = 0, total = 0, gan = 0, turnos = 0, ant = 0;
+            int dado = 0, total = 0, turnos = 0, ant = 0;
             string continuar = "s";
 
             dado = aleatorio.Next(1, 13);
             Console.WriteLine("Dado =  " + dado);
-            total += dado
+            total += dado;
             Console.WriteLine("Su total es: " + total);
             Console.WriteLine("¿Desea continuar? (s/n): ");
             continuar = Console.ReadLine();
             turnos++;
-            anterior = dado;
+            ant = dado;
 
             while (continuar == "s")
             {
-                anterior = dado;
+                ant = dado;
                 dado = aleatorio.Next(1, 13);
                 Console.WriteLine("Dado = " + dado);
                 total += dado;
                 turnos++;
-                
-                if(anterior == 10 && dado == 12)
+
+                if (ant == 10 && dado == 12)
                 {
                     Console.WriteLine("Ganaste! Conseguiste un 12 seguido de un 10.");
                     continuar = "n";
@@ -37,13 +37,13 @@ namespace Ejercicio_7
                     Console.WriteLine("Ganaste!");
                     continuar = "n";
                 }
-                else if (dado %2 != 0 && turnos > 3)
+                else if (dado % 2 != 0 && turnos > 3)
                 {
                     Console.WriteLine("Sacaste un impar. Perdiste.");
                     continuar = "n";
                 }
-                
-                
+
+
                 else
                 {
                     Console.WriteLine("Total = " + total);
