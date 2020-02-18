@@ -1,59 +1,78 @@
-﻿using System;
+using System;
 
-namespace Ejercicio_7
+namespace ConsoleApp8
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Random aleatorio = new Random();
-            int dado = 0, total = 0, turnos = 0, ant = 0;
-            string continuar = "s";
-
-            dado = aleatorio.Next(1, 13);
-            Console.WriteLine("Dado =  " + dado);
-            total += dado;
-            Console.WriteLine("Su total es: " + total);
-            Console.WriteLine("¿Desea continuar? (s/n): ");
-            continuar = Console.ReadLine();
-            turnos++;
-            ant = dado;
-
-            while (continuar == "s")
+            string continuarJuego = "s";
+            while (continuarJuego == "s")
             {
-                ant = dado;
-                dado = aleatorio.Next(1, 13);
-                Console.WriteLine("Dado = " + dado);
-                total += dado;
-                turnos++;
+                Random aleatorio = new Random();
+                int dado1 = aleatorio.Next(1, 13);
+                int total = dado1;
 
-                if (ant == 10 && dado == 12)
+                string continuar = "";
+                int contador = 0;
+                int anterior = 0;
+
+                Console.WriteLine("Obtenga 100 o mas para ganar.");
+                Console.WriteLine("Ustede tiene 3 tiros libres, perdera si una vez pasados los 3 turnos saca un numero impar.");
+                Console.WriteLine("Si obtine un 12 seguido de un 10 ganara automaticamente.");
+
+                Console.WriteLine("dado: " + dado1);
+                Console.WriteLine("Total: " + total);
+
+                Console.WriteLine("Dijite 's' para lanzar nuevamente o 'f' para finalizar partida");
+                continuar = Console.ReadLine();
+
+                while (continuar == "s" && total < 100)
                 {
-                    Console.WriteLine("Ganaste! Conseguiste un 12 seguido de un 10.");
-                    continuar = "n";
-                }
-                else if (total >= 100)
-                {
-                    Console.WriteLine("Ganaste!");
-                    continuar = "n";
-                }
-                else if (dado % 2 != 0 && turnos > 3)
-                {
-                    Console.WriteLine("Sacaste un impar. Perdiste.");
-                    continuar = "n";
+                    anterior = dado1;
+                    dado1 = aleatorio.Next(1, 13);
+                    Console.WriteLine("dado: " + dado1);
+                    contador++;
+                    total += dado1;
+                    Console.WriteLine("Total: " + total);
+
+                    if (anterior == 12 && dado1 == 10)
+                        total = 100;
+
+                    if (total >= 100)
+                    {
+                        continuar = "f";
+                        Console.WriteLine("Ganó");
+                        Console.WriteLine(" ");
+                    }
+
+                    if (total < 100 && contador < 3)
+                    {
+                        Console.WriteLine("Dijite 's' para lanzar nuevamente o 'f' para finalizar partida");
+                        continuar = Console.ReadLine();
+                    }
+
+                    if (contador >= 3)
+                    {
+                        if (dado1 % 2 != 0)
+                        {
+                            continuar = "f";
+                            Console.WriteLine("Perdió");
+                            Console.WriteLine(" ");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Dijite 's' para lanzar nuevamente o 'f' para finalizar partida");
+                            continuar = Console.ReadLine();
+                        }
+                    }
                 }
 
+                Console.WriteLine(" ");
 
-                else
-                {
-                    Console.WriteLine("Total = " + total);
-                    Console.WriteLine("¿Deasea continuar? (s/n): ");
-                    continuar = Console.ReadLine();
-                }
+                Console.WriteLine("¿Desea jugar otra vez? (digite 's' para si o 'n' para no)");
+                continuarJuego = Console.ReadLine();
             }
-
-            Console.WriteLine("Su total fue: " + total + " puntos.");
-            Console.WriteLine("Gracias por participar.");
         }
     }
 }
